@@ -69,6 +69,7 @@
 
     </div> <!-- /container -->
 
+    <div id="fb-root"></div>
     <div id='map'></div>
     <div id="about">
       <span class="sectiontitle">About</span>
@@ -113,7 +114,6 @@
     <script src="./js/bootstrap-typeahead.js"></script>
 
     <!-- Facebook login -->
-    <div id="fb-root"></div>
     <script>
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
@@ -132,6 +132,7 @@ function testAPI() {
      }
       // Additional JS functions here
       window.fbAsyncInit = function() {
+        console.log("Facebook loaded; initializing sdk.");
         FB.init({
           appId      : '481050461944336', // App ID
           channelUrl : '//mockup-1.herokuapp.com/channel.html', // Channel File
@@ -142,14 +143,18 @@ function testAPI() {
     
         // Additional init code here
     FB.getLoginStatus(function(response) {
+        console.log("getLoginStatus: Got a response");        
         if (response.status === 'connected') {
-            
+            console.log("Response: Connected");
             // connected
             testAPI();
         } else if (response.status === 'not_authorized') {
+            console.log("Response: Not authorized");
             // not_authorized
+            testAPI();
             login();
         } else {
+            console.log("Response: Not connected");
             // not_logged_in
             testAPI();
             login();
