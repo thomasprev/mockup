@@ -116,18 +116,10 @@
 
     <!-- Facebook login -->
     <script>
-function testAPI() {
-    console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
-        console.log('Good to see you, ' + response.name + '.');
-        console.log('Your id is ' + response.id + '.');
-    });
-}
-    function login() {
-        FB.login(function(response) {
-            if (response.authResponse) {
+    function addMarkersMyEvents(loginInfo){
+            if(!loginInfo.status){return;} //check if connected
             console.log("You are authenticated, let's search for your events on Facebook.");
-            $getJSON("https://graph.facebook.com/"+response.authResponse.userID+"/events?&access_token="+response.authResponse.accessToken,
+            $.getJSON("https://graph.facebook.com/"+response.authResponse.userID+"/events?&access_token="+response.authResponse.accessToken,
              function(data){
                  console.log("We retrieve events from your Facebook account, let's convert them to coordinates using Yahoo API.");
                  // Create an empty markers layer
@@ -172,7 +164,21 @@ function testAPI() {
                });
                console.log("End of searching Facebook event.");
              });
+
+   }
+
+function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.');
+        console.log('Your id is ' + response.id + '.');
+    });
+}
+    function login() {
+        FB.login(function(response) {
+            if (response.authResponse) {
             // connected
+            addMarkersMyEvents(response);
             } else {
                 // cancelled
             }
@@ -196,6 +202,7 @@ function testAPI() {
             console.log("Response: Connected");
             // connected
             testAPI();
+            addMarkersMyEvents(response);
         } else if (response.status === 'not_authorized') {
             console.log("Response: Not authorized");
             // not_authorized
