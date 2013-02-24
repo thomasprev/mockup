@@ -187,6 +187,11 @@ function testAPI() {
             }
         });
      }
+     function logout() {
+    FB.logout(function(response) {
+        console.log('User is now logged out');
+    });
+}
       // Additional JS functions here
       window.fbAsyncInit = function() {
         console.log("Facebook loaded; initializing sdk.");
@@ -229,6 +234,7 @@ function testAPI() {
          ref.parentNode.insertBefore(js, ref);
        }(document));
        $("#loginFB").click(function(){
+         logout();
          login();
        });
     </script>
