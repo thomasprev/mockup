@@ -119,7 +119,7 @@
     function addMarkersMyEvents(loginInfo){
             if(!loginInfo.status){return;} //check if connected
             console.log("You are authenticated, let's search for your events on Facebook.");
-            $.getJSON("https://graph.facebook.com/"+response.authResponse.userID+"/events?&access_token="+loginInfo.authResponse.accessToken,
+            $.getJSON("https://graph.facebook.com/"+loginInfo.authResponse.userID+"/events?&access_token="+loginInfo.authResponse.accessToken,
              function(data){
                  console.log("We retrieve events from your Facebook account, let's convert them to coordinates using Yahoo API.");
                  // Create an empty markers layer
