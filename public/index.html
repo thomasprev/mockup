@@ -180,6 +180,7 @@ function testAPI() {
     function login() {
         FB.login(function(response) {
             if (response.authResponse) {
+            console.log("Token is "+response.authResponse.accessToken);
             // connected
             addMarkersMyEvents(response);
             } else {
