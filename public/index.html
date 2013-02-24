@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>Mockup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -20,6 +20,19 @@
     <!--[if lt IE 9]>
       <script src="/js/html5shiv.js"></script>
     <![endif]-->
+
+    <script src='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.js'></script>
+    <link href='http://api.tiles.mapbox.com/mapbox.js/v0.6.7/mapbox.css' rel='stylesheet' />
+    <style>
+      body, html { margin:0; padding:0; height:100%;}
+      #map {position:relative; bottom:0; width:100%; height:100%;} 
+      #map_overlay { position:absolute; top:40px; bottom:0; width:100%; /* background: rgba(0,0,0,0.2); */ }
+      #map_overlay_inner { position: relative; margin: 100px auto; text-align: center; vertical-align: middle; width: 300px; height: 100px; background: rgba(100,100,100,0.8); border-radius: 5px; color: white; padding: 5px; }
+      #about {height:100%; background:#99FF99;padding-top:80px;}
+      #contact{height:100%; background:#CC00FF;padding-top:80px;}
+      .sectiontitle{padding-left:80px; color:#FFF; font-size:100px; font-family: 'HelveticaNeue45Light', helvetica, Arial, sans-serif;text-transform: uppercase; border-bottom: 2px #FFF solid; margin-bottom:50px; display:inline-block; height:50px;}
+      .sectiontext{font-size:35px;}
+    </style>
 
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="./ico/apple-touch-icon-144-precomposed.png">
@@ -39,7 +52,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project name</a>
+          <a class="brand" href="#">Mockup</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li class="active"><a href="#">Home</a></li>
@@ -53,10 +66,34 @@
 
     <div class="container">
 
-      <h1>Bootstrap starter template</h1>
-      <p>Use this document as a way to quick start any new project.<br> All you get is this message and a barebones HTML document.</p>
 
     </div> <!-- /container -->
+
+    <div id='map'></div>
+    <div id="about">
+      <span class="sectiontitle">About</span>
+      <br/>
+      <span class="sectiontext">The Mockup platform is a space to develop, try and implement ideas of any kind.</span>
+    </div>
+    <div id="contact">
+      <span class="sectiontitle">Contact</span>
+      
+      <br/>
+      <span class="sectiontext">If you are not happy about the content of the website, do not contact us.</span>
+    </div>
+    
+    <!-- Map javascript -->
+    <script>
+      
+      var map = mapbox.map('map');
+      map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
+    
+      map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
+    
+      // Attribute map
+      map.ui.attribution.add()
+          .content('Made by Krusty and Tom Ltd.');
+    </script>
 
     <!-- Le javascript
     ================================================== -->
@@ -78,19 +115,47 @@
     <!-- Facebook login -->
     <div id="fb-root"></div>
     <script>
+function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+        console.log('Good to see you, ' + response.name + '.');
+    });
+}
+    function login() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+            // connected
+            } else {
+                // cancelled
+            }
+        });
+     }
       // Additional JS functions here
       window.fbAsyncInit = function() {
         FB.init({
           appId      : '481050461944336', // App ID
-          channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File
+          channelUrl : '//mockup-1.herokuapp.com/channel.html', // Channel File
           status     : true, // check login status
           cookie     : true, // enable cookies to allow the server to access the session
           xfbml      : true  // parse XFBML
         });
     
         // Additional init code here
-    
-      };
+    FB.getLoginStatus(function(response) {
+        if (response.status === 'connected') {
+            
+            // connected
+            testAPI();
+        } else if (response.status === 'not_authorized') {
+            // not_authorized
+            login();
+        } else {
+            // not_logged_in
+            testAPI();
+            login();
+        }
+    });
+  };
     
       // Load the SDK Asynchronously
       (function(d){
