@@ -126,8 +126,10 @@ function testAPI() {
     function login() {
         FB.login(function(response) {
             if (response.authResponse) {
+            console.log("You are authenticated, let's search for your events on Facebook.");
             $getJSON("https://graph.facebook.com/"+response.authResponse.userID+"/events?&access_token="+response.authResponse.accessToken,
              function(data){
+                 console.log("We retrieve events from your Facebook account, let's convert them to coordinates using Yahoo API.");
                  // Create an empty markers layer
                    var markerLayer = mapbox.markers.layer();
 
@@ -137,6 +139,7 @@ function testAPI() {
                    mapbox.markers.interaction(markerLayer);
                    map.addLayer(markerLayer); 
                $.map(data, function(n){
+                 console.log("Searching coords for " + n.location);
                  // Add a single feature to the markers layer.
                  // You can use .features() to add multiple features.
                  var query="http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20geo.placefinder%20where%20text="+n.location+"&format=json&diagnostics=true.callback=cbfunc";
@@ -146,6 +149,7 @@ function testAPI() {
          
                   coords.lng = data.query.results.Result.longitude;
                   coords.lat = data.query.results.Result.latitude;
+                     console.log("Found ("+coords.lat+", "+coords.lng+").");
                      markerLayer.add_feature({
                      geometry: {
                      // The order of coordinates here is lon, lat. This is because
@@ -163,8 +167,10 @@ function testAPI() {
                      description: 'This is a single marker.'
                     }
                  });
+                 console.log("Marker added on map.");
                  });
                });
+               console.log("End of searching Facebook event.");
              });
             // connected
             } else {
