@@ -58,6 +58,7 @@
               <li class="active"><a href="#">Home</a></li>
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
+              <li id="loginFB"><a href="#">Login</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -170,6 +171,9 @@ function testAPI() {
          js.src = "//connect.facebook.net/en_US/all.js";
          ref.parentNode.insertBefore(js, ref);
        }(document));
+       $("#loginFB").click(function(){
+         login();
+       });
     </script>
 
   </body>
