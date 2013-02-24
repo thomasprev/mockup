@@ -119,9 +119,10 @@
     function addMarkersMyEvents(loginInfo){
             if(!loginInfo.status){return;} //check if connected
             console.log("You are authenticated, let's search for your events on Facebook.");
-            $.getJSON("https://graph.facebook.com/"+loginInfo.authResponse.userID+"/events?&access_token="+loginInfo.authResponse.accessToken,
+            $.getJSON("https://graph.facebook.com/me/events?access_token="+loginInfo.authResponse.accessToken,
              function(data){
-                 console.log("We retrieve events from your Facebook account, let's convert them to coordinates using Yahoo API.");
+                 if(!data.length>0){console.log("No event found.. Is it possible !?"); return;}
+                 console.log("We retrieve "+data.length+" events from your Facebook account, let's convert them to coordinates using Yahoo API.");
                  // Create an empty markers layer
                    var markerLayer = mapbox.markers.layer();
 
