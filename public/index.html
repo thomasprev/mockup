@@ -89,6 +89,32 @@
 
 <script type="text/javascript">
 
+</script>  
+    <!-- Map javascript -->
+    <script>
+      
+      var map = mapbox.map('map');
+      map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
+    
+      map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
+    
+      // Attribute map
+      map.ui.attribution.add()
+          .content('Made during the startup weekend in Brussels.');
+   //get user coordinates
+          if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            pos = new google.maps.LatLng(position.coords.latitude,
+                                             position.coords.longitude);
+            map.setCenter(pos);
+            addMarkers(pos);
+            $("#centerlat").val(position.coords.latitude);
+            $("#centerlng").val(position.coords.longitude);
+          }, function() {
+            handleNoGeolocation(true);
+          });
+
+  // initialize camera for taking a picture
     var video = document.querySelector("#vid");
     var canvas = document.querySelector('#canvas');
     var ctx = canvas.getContext('2d');
@@ -111,18 +137,6 @@
         localMediaStream = stream;
     }, onCameraFail);
 
-</script>  
-    <!-- Map javascript -->
-    <script>
-      
-      var map = mapbox.map('map');
-      map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
-    
-      map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
-    
-      // Attribute map
-      map.ui.attribution.add()
-          .content('Made by Krusty and Tom Ltd.');
     </script>
 
     <!-- Le javascript
