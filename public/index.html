@@ -2,10 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Mockup</title>
+    <title>timepics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="./js/jquery.min.js"></script>
+      <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
 
     <!-- Le styles -->
     <link href="./css/bootstrap.css" rel="stylesheet">
@@ -75,7 +77,7 @@
     <div id="about">
       <span class="sectiontitle">About</span>
       <br/>
-      <span class="sectiontext">The Mockup platform is a space to develop, try and implement ideas of any kind.</span>
+      <span class="sectiontext">Timepics is a temporary social netword made by the people around you in the real world.</span>
     </div>
     <div id="contact">
       <span class="sectiontitle">Contact</span>
@@ -83,66 +85,14 @@
       <br/>
       <span class="sectiontext">If you are not happy about the content of the website, do not contact us.</span>
     </div>
- <video autoplay id="vid" style="display:none;"></video>
+<video autoplay id="vid" style="display:none;"></video>
 <canvas id="canvas" width="1280" height="720" style="border:1px solid #d3d3d3;"></canvas><br>
 <button onclick="snapshot()">Take Picture</button>
-
-<script type="text/javascript">
-
-</script>  
     <!-- Map javascript -->
-    <script>
-      
-      var map = mapbox.map('map');
-      map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
-    
-      map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
-    
-      // Attribute map
-      map.ui.attribution.add()
-          .content('Made during the startup weekend in Brussels.');
-   //get user coordinates
-          if(navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            pos = new google.maps.LatLng(position.coords.latitude,
-                                             position.coords.longitude);
-            map.setCenter(pos);
-            addMarkers(pos);
-            $("#centerlat").val(position.coords.latitude);
-            $("#centerlng").val(position.coords.longitude);
-          }, function() {
-            handleNoGeolocation(true);
-          });
-
-  // initialize camera for taking a picture
-    var video = document.querySelector("#vid");
-    var canvas = document.querySelector('#canvas');
-    var ctx = canvas.getContext('2d');
-    var localMediaStream = null;
-
-    var onCameraFail = function (e) {
-        console.log('Camera did not work.', e);
-    };
-
-    function snapshot() {
-        if (localMediaStream) {
-            ctx.drawImage(video, 0, 0);
-        }
-    }
-
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-    window.URL = window.URL || window.webkitURL;
-    navigator.getUserMedia({video:true}, function (stream) {
-        video.src = window.URL.createObjectURL(stream);
-        localMediaStream = stream;
-    }, onCameraFail);
-
-    </script>
 
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./js/jquery.min.js"></script>
 <!--    <script src="./js/bootstrap-transition.js"></script>
     <script src="./js/bootstrap-alert.js"></script>
     <script src="./js/bootstrap-modal.js"></script>
@@ -200,8 +150,8 @@
                      // https://github.com/mapbox/simplestyle-spec
                     'marker-color': '#000',
                     'marker-symbol': 'star-stroked',
-                     title: 'Example Marker',
-                     description: 'This is a single marker.'
+                     title: 'You are here',
+                     description: 'Your location.'
                     }
                  });
                  console.log("Marker added on map.");
@@ -280,7 +230,53 @@ function testAPI() {
          logout();
          login();
        });
-    </script>
+      
+      var map = mapbox.map('map');
+      map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
+//   map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true}); 
+      map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
+    
+      // Attribute map
+      map.ui.attribution.add()
+          .content('Made during the startup weekend in Brussels.');
+   //get user coordinates
+          if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            pos = new google.maps.LatLng(position.coords.latitude,
+                                             position.coords.longitude);
+            map.setCenter(pos);
+            addMarkers(pos);
+            $("#centerlat").val(position.coords.latitude);
+            $("#centerlng").val(position.coords.longitude);
+          }, function() {
+            handleNoGeolocation(true);
+          });
+        }
+
+  // initialize camera for taking a picture
+    var video = document.querySelector("#vid");
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+    var localMediaStream = null;
+
+    var onCameraFail = function (e) {
+        console.log('Camera did not work.', e);
+    };
+
+    function snapshot() {
+        if (localMediaStream) {
+            ctx.drawImage(video, 0, 0);
+        }
+    }
+
+    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    window.URL = window.URL || window.webkitURL;
+    navigator.getUserMedia({video:true}, function (stream) {
+        video.src = window.URL.createObjectURL(stream);
+        localMediaStream = stream;
+    }, onCameraFail);
+
+</script>
 
   </body>
 </html>
