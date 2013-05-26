@@ -74,9 +74,9 @@
 
     <div id="fb-root"></div>
     <div id="about">
-      <span class="sectiontitle">About</span>
+      <span class="sectiontitle">Latest activity</span>
       <br/>
-      <span class="sectiontext">Timepics is a temporary social netword made by the people around you in the real world.</span>
+      Timepics is a temporary social netword made by the people around you in the real world.
     </div>
     <div id='map'></div>
     <div id="contact">
@@ -173,7 +173,7 @@ function testAPI() {
         FB.login(function(response) {
             if (response.authResponse) {
             console.log("Token is "+response.authResponse.accessToken);
-            var query="https://graph.facebook.com/me?access_token="+loginInfo.authResponse.accessToken;
+            var query="https://graph.facebook.com/me?access_token="+response.authResponse.accessToken;
             console.log("The query used is for your name: "+query);
             $.getJSON(query,
              function(data){
