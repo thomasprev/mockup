@@ -7,7 +7,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="./js/jquery.min.js"></script>
-      <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
 
     <!-- Le styles -->
     <link href="./css/bootstrap.css" rel="stylesheet">
@@ -77,7 +76,9 @@
       <span class="sectiontitle">Latest activity</span>
       <br/>
       <center>
-      Timepics is a temporary social netword made by the people around you in the real world.
+      <i>Timepics is a temporary social netword made by the people around you in the real world.</i><br/>
+<br/>
+<br/>
       <img src="img/img1.jpg" height="40px"/><br/>
       <img src="img/img2.jpg" height="40px"/><br/>
       <img src="img/img3.jpg" height="40px"/><br/>
@@ -182,6 +183,7 @@ function testAPI() {
             $.getJSON(query,
              function(data){
                if(data.name){
+                 $("#loginFB").text(data.name);
                  console.log("Welcome "+data.name);
                }
              });
@@ -244,6 +246,13 @@ function testAPI() {
        });
       
       var map = mapbox.map('map');
+                 // Create an empty markers layer
+                   var markerLayer = mapbox.markers.layer();
+
+                 // Add interaction to this marker layer. This
+                 // binds tooltips to each marker that has title
+                 // and description defined.
+                   mapbox.markers.interaction(markerLayer);
       map.addLayer(mapbox.layer().id('thomasprev.map-ho6yhlv6'));
 //   map.setOptions({draggable: false, zoomControl: false, scrollwheel: false, disableDoubleClickZoom: true}); 
       map.zoom(14).center({ lat: 50.84147, lon: 4.360167 });
@@ -251,16 +260,51 @@ function testAPI() {
       // Attribute map
       map.ui.attribution.add()
           .content('Made during the startup weekend in Brussels.');
-           console.log("We have... "+navigator.geolocation+" Loc");
+           console.log("We have... "+navigator.geolocation==null+" Loc");
    //get user coordinates
           if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-            pos = new google.maps.LatLng(position.coords.latitude,
-                                             position.coords.longitude);
-            map.setCenter(pos);
-            addMarkers(pos);
+          markerLayer.add_feature({
+                     geometry: {
+                     // The order of coordinates here is lon, lat. This is because
+                     // we use the GeoJSON specification for all marker features.
+                     // (lon, lat is also the internal order of KML and other geographic formats)
+                     coordinates: [position.coords.latitude, position.coords.latitude]
+                     },
+                     properties: {
+                     // these properties customize the look of the marker
+                     // see the simplestyle-spec for a full reference:
+                     // https://github.com/mapbox/simplestyle-spec
+                    'marker-color': '#000',
+                    'marker-symbol': 'star-stroked',
+                     title: 'You are here',
+                     description: 'Your location.'
+                    }
+                 });
+            
+         
+            map.markerLayer.add_feature({
+                geometry: {
+                    // The order of coordinates here is lon, lat. This is because
+                    // we use the GeoJSON specification for all marker features.
+                    // (lon, lat is also the internal order of KML and other geographic formats)
+                    coordinates: [position.coords.longitude, position.coords.latitude]
+                },
+                properties: {
+                    // these properties customize the look of the marker
+                    // see the simplestyle-spec for a full reference:
+                    // https://github.com/mapbox/simplestyle-spec
+                    'marker-color': '#fff',
+                    'marker-symbol': 'star-stroked'
+                }
+            });
+            
+            map.ease.location({ lat:position.coords.latitude, lon: position.coords.longitude}).zoom(8).optimal();
+ 
             $("#centerlat").val(position.coords.latitude);
             $("#centerlng").val(position.coords.longitude);
+            console.log("Here."+position.coords.longitude+"  "+position.coords.latitude);
+                   map.addLayer(markerLayer); 
           }, function() {
             //handleNoGeolocation(true);
           });
