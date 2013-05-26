@@ -76,12 +76,14 @@
     <div id="activity">
       <span class="sectiontitle">Latest activity</span>
       <br/>
+      <center>
       Timepics is a temporary social netword made by the people around you in the real world.
-      <script type="text/javascript">
-         for(var i=0; i<5; i++){
-           
-         }
-      </script>
+      </center>
+      <img href="img/img1.jpg" height="40px"/>
+      <img href="img/img2.jpg" height="40px"/>
+      <img href="img/img3.jpg" height="40px"/>
+      <img href="img/img4.jpg" height="40px"/>
+      <img href="img/img5.jpg" height="40px"/>
     </div>
     <div id='map'></div>
     <div id="photo">
@@ -259,7 +261,7 @@ function testAPI() {
             $("#centerlat").val(position.coords.latitude);
             $("#centerlng").val(position.coords.longitude);
           }, function() {
-            handleNoGeolocation(true);
+            //handleNoGeolocation(true);
           });
         }
 
