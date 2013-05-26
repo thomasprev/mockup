@@ -33,6 +33,16 @@
       #contact{height:100%; background:#CC00FF;padding-top:80px;}
       .sectiontitle{padding-left:80px; color:#FFF; font-size:100px; font-family: 'HelveticaNeue45Light', helvetica, Arial, sans-serif;text-transform: uppercase; border-bottom: 2px #FFF solid; margin-bottom:50px; display:inline-block; height:50px;}
       .sectiontext{font-size:35px;}
+	  	.picture{
+		margin-top:20px;
+		margin-bottom:40px;
+		width:480px; /* you can use % */
+		height: auto;
+	}
+	.orgaMsg{
+		color:#FFFFFF;
+	}
+#picsLine { background:#000000;padding-top:80px;}
     </style>
 
     <!-- Fav and touch icons -->
@@ -68,22 +78,96 @@
 
     <div class="container">
 
-
     </div> <!-- /container -->
 
     <div id="fb-root"></div>
     <div id="activity">
+			<div class="span" style="margin-top:10px;">
+				 <div style="float:left;"   >
+					<span class="orgaMsg">Organizer info: </span>
+					<span class="alert alert-info" >Hey ! Presentation are happening right now ! </span>
+				</div>
+			</div>
+
       <span class="sectiontitle">Latest activity</span>
       <br/>
       <center>
       <i>Timepics is a temporary social netword made by the people around you in the real world.</i><br/>
 <br/>
 <br/>
-      <img src="img/img1.jpg" height="40px"/><br/>
-      <img src="img/img2.jpg" height="40px"/><br/>
-      <img src="img/img3.jpg" height="40px"/><br/>
-      <img src="img/img4.jpg" height="40px"/><br/>
-      <img src="img/img5.jpg" height="40px"/><br/>
+		<div id="picsLine">
+			<div class="picture">
+				<img src="img/10.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<input style="margin-top:10px;" type="text" name="com" value="Leave a comment" />
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>				
+			</div>
+			<div class="picture">
+				<img src="img/9.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/8.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/7.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/6.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/5.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/4.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>	
+			<div class="picture">
+				<img src="img/3.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/2.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+			<div class="picture">
+				<img src="img/1.jpg" class="img-polaroid">
+				<div class="vote" style="float:left;">
+					<button class="btn btn-success">UP</button>
+					<button class="btn btn-danger">Down</button>
+				</div>	
+			</div>
+		</div>
       </center>
     </div>
     <div id='map'></div>
