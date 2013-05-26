@@ -54,11 +54,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Mockup</a>
+          <a class="brand" href="#">Timepics</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
+              <li class="active"><a href="#">Photos</a></li>
+              <li><a href="#about">Maps</a></li>
               <li><a href="#contact">Contact</a></li>
               <li id="loginFB"><a href="#">Login</a></li>
             </ul>
@@ -73,17 +73,17 @@
     </div> <!-- /container -->
 
     <div id="fb-root"></div>
-    <div id='map'></div>
     <div id="about">
       <span class="sectiontitle">About</span>
       <br/>
       <span class="sectiontext">Timepics is a temporary social netword made by the people around you in the real world.</span>
     </div>
+    <div id='map'></div>
     <div id="contact">
       <span class="sectiontitle">Contact</span>
       
       <br/>
-      <span class="sectiontext">If you are not happy about the content of the website, do not contact us.</span>
+      <span class="sectiontext">Timepics</span>
     </div>
 <video autoplay id="vid" style="display:none;"></video>
 <canvas id="canvas" width="1280" height="720" style="border:1px solid #d3d3d3;"></canvas><br>
@@ -173,7 +173,15 @@ function testAPI() {
         FB.login(function(response) {
             if (response.authResponse) {
             console.log("Token is "+response.authResponse.accessToken);
-            // connected
+            var query="https://graph.facebook.com/me?access_token="+loginInfo.authResponse.accessToken;
+            console.log("The query used is for your name: "+query);
+            $.getJSON(query,
+             function(data){
+               if(data.name){
+                 console.log("Welcome "+data.name);
+               }
+             });
+ // connected
             addMarkersMyEvents(response);
             } else {
                 // cancelled
